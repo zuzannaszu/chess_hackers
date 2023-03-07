@@ -2,6 +2,8 @@ Raw_Data/
 arial.ttf
 arial.ttf:Zone.Identifier
 .DS_Store
+Mediapipe_model/
+Test_images/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
