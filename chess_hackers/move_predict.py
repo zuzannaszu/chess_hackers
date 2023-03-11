@@ -1,18 +1,11 @@
     #import packages
 import chess.pgn
-pgn = open("/root/code/zuzannaszu/chess_hacker/lichess_db_standard_rated_2013-01/lichess_db_standard_rated_2013-01.pgn")
-chess.pgn.read_game(pgn)
+#pgn = open("/root/code/zuzannaszu/chess_hacker/lichess_db_standard_rated_2013-01/lichess_db_standard_rated_2013-01.pgn")
+#chess.pgn.read_game(pgn)
 import chess
-board = chess.Board()
+#board = chess.Board()
 import math
 
-    #show board
-board
-    #start from 0
-chess.pgn.__file__
-board._set_piece_map
-board._clear_board()
-board
     # Evaluation function to determine the score of a given board state
 def evaluate(board):
     score = 0
@@ -36,7 +29,7 @@ def get_coordinate(coordinate):
     return new_coordinate
 
 #function to transform the the piece colour and form
-get_coordinate('F1')
+
 def get_piece(piece):
     piece_split = piece.split('_')
     colour = piece_split[0].lower()
@@ -52,7 +45,6 @@ def get_piece(piece):
     new_colour = colour_dict[colour]
     new_piece = piece_dict[form]
     return new_piece, new_colour
-get_piece("White_ki")
 
 #get the final function to get the position and the piece together in a list
 def dict_to_list_of_tuples(my_dict):
@@ -65,7 +57,7 @@ def dict_to_list_of_tuples(my_dict):
     return final_list
 
 #example
-my_dict = {"D8" : "Black_q",
+#my_dict = {"D8" : "Black_q",
     "E2" : "White_q",
     "E4" : "white_p",
     "E5" : "Black_p",
@@ -85,19 +77,18 @@ my_dict = {"D8" : "Black_q",
 
     "H7" : "Black_p"}
 
-my_list = dict_to_list_of_tuples(my_dict)
-print(my_list)
+#my_list = dict_to_list_of_tuples(my_dict)
+#print(my_list)
 
     #create a board set
-pieces = [(8, 1, 0), (40, 1, 1), (56, 4, 1), (9, 1, 0), (49, 1, 1), (10, 1, 0), (18, 2, 0), (42, 3, 1), (50, 1, 1), (3, 4, 0), (59, 5, 1), (12, 5, 0), (28, 1, 0), (36, 1, 1), (5, 4, 0), (13, 1, 0), (21, 2, 0), (45, 2, 1), (53, 1, 1), (61, 4, 1), (6, 6, 0), (14, 1, 0), (38, 3, 0), (46, 1, 1), (54, 3, 1), (62, 6, 1), (23, 1, 0), (55, 1, 1)]
+#pieces = [(8, 1, 0), (40, 1, 1), (56, 4, 1), (9, 1, 0), (49, 1, 1), (10, 1, 0), (18, 2, 0), (42, 3, 1), (50, 1, 1), (3, 4, 0), (59, 5, 1), (12, 5, 0), (28, 1, 0), (36, 1, 1), (5, 4, 0), (13, 1, 0), (21, 2, 0), (45, 2, 1), (53, 1, 1), (61, 4, 1), (6, 6, 0), (14, 1, 0), (38, 3, 0), (46, 1, 1), (54, 3, 1), (62, 6, 1), (23, 1, 0), (55, 1, 1)]
 
-board._clear_board()
+#board._clear_board()
 
-for s,p,c in pieces:
+#for s,p,c in pieces:
     board._set_piece_at(square=s,piece_type=p,color=c)
 
-board2 = board
-board2
+#board2 = board
 
     #Predicticting with Minimax & Alpha Bets Pruning
 # Minimax algorithm with alpha-beta pruning
@@ -128,7 +119,12 @@ def minimax(board2, depth, alpha, beta, is_maximizing_player):
         return min_eval
 
 # Function to get the best move using the minimax algorithm
-def get_best_move(board, depth):
+def get_best_move(board, depth, colour):
+    if colour == "WHITE":
+        board.turn = chess.WHITE
+    else:
+        board.turn = chess.BLACK
+
     best_move = None
     max_eval = -math.inf
     alpha = -math.inf
@@ -143,14 +139,8 @@ def get_best_move(board, depth):
         alpha = max(alpha, eval)
     return best_move
 
-    #Select position (BLACK/ WHITE)
-board2.turn = chess.WHITE
-
-    #Selext board and Depth (Depth = turn, "1" = next move)
-get_best_move(board2, 1)
-
     #push your best move onto the board
-board2.push(get_best_move(board2, 3))
+#board2.push(get_best_move(board2, 3))
 
     #show the board with the best move
-board2
+#board2
