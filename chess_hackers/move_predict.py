@@ -25,7 +25,6 @@ def evaluate(board):
 
     #transforming dictionnary of coordinate in to readable number combination for chess package
 #example of dictionnary for  game
-Dictionary of a game state:
 
 #function to transform the coordinate location
 def get_coordinate(coordinate):
@@ -66,7 +65,7 @@ def dict_to_list_of_tuples(my_dict):
     return final_list
 
 #example
-  "D8" : "Black_q",
+my_dict = {"D8" : "Black_q",
     "E2" : "White_q",
     "E4" : "white_p",
     "E5" : "Black_p",
@@ -84,9 +83,8 @@ def dict_to_list_of_tuples(my_dict):
     "G8" : "Black_ki",
     "H3" : "white_p",
 
-    "H7" : "Black_p"
+    "H7" : "Black_p"}
 
-}
 my_list = dict_to_list_of_tuples(my_dict)
 print(my_list)
 
@@ -154,5 +152,5 @@ get_best_move(board2, 1)
     #push your best move onto the board
 board2.push(get_best_move(board2, 3))
 
-    #show the board with the best move 
+    #show the board with the best move
 board2
