@@ -5,6 +5,9 @@ arial.ttf:Zone.Identifier
 .DS_Store
 Mediapipe_model/
 Test_images/
+lichess*
+*.pgn
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -33,6 +36,8 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+notebooks/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
