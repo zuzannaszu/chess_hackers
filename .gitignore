@@ -1,5 +1,13 @@
+Raw_Data/
+Crop_images/
+arial.ttf
+arial.ttf:Zone.Identifier
+.DS_Store
+Mediapipe_model/
+Test_images/
 lichess*
 *.pgn
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -28,6 +36,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
 notebooks/
 
 # PyInstaller
