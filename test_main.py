@@ -4,10 +4,14 @@ from Python_files.utils import edge_detector, hough_lines_detector, filtering_li
 from Python_files.Display_func import display_hough_lines, display_filtered_lines, display_intersection, displaying_coordinates
 
 display = 1
+white_bottom = False
 
-img_path = "/home/thierry/code/zuzannaszu/chess_hackers/Raw_Data/Final_boards/Board1.jpg"
+img_path = "/home/thierry/code/zuzannaszu/chess_hackers/Raw_Data/Final_boards/Board3.jpg"
 img = cv.imread(img_path, 1)
 img = cv.resize(img,(1280, 1280), interpolation = cv.INTER_AREA)
+
+if display == 1:
+    plt.imshow(img)
 
 edge = edge_detector(img, 80, 300)
 
@@ -29,12 +33,12 @@ intersections, intersections_df = intersection_calculation(horizontal_lines, ver
 if display == 1:
     display_intersection(intersections,img,horizontal_lines, vertical_lines)
 
-coordinates = coordinate_generator(intersections_df)
+coordinates = coordinate_generator(intersections_df, white_bottom)
 
 if display == 1:
     displaying_coordinates(img, coordinates)
 
-cropped_imgs = image_cropping(intersections, img,40)
+cropped_imgs = image_cropping(intersections, img, white_bottom, 40)
 
 save_path = "/home/thierry/code/zuzannaszu/chess_hackers/Test_save/"
 

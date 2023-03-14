@@ -97,35 +97,49 @@ def intersection_calculation(horizontal, vertical):
 
     else: return (None, None), None
 
-def coordinate_generator(inter):
+def coordinate_generator(inter, white_bottom):
     """input is a dataframe output by the intersection calculation funtion.
     Requires change so A0 can be setup differently"""
     if inter is not None:
         if len(inter) > 80:
             inter = inter.drop(columns="index")
-            A0 = inter.loc[0].to_list()
             coordinate = {}
             letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
             i = 0
-            for col in letters:
-                for line in range(8):
-                    val = inter.loc[10+i + 9*line].to_list()
-                    text = f"{col}{line}"
-                    coordinate[text] = val
-                i += 1
+            if white_bottom == True:
+                for col in letters:
+                    for line in range(8):
+                        val = inter.loc[73+i - 9*line].to_list()
+                        text = f"{col}{line + 1}"
+                        coordinate[text] = val
+                    i += 1
+            else:
+                for col in letters:
+                    for line in range(8):
+                        val = inter.loc[17-i + 9*line].to_list()
+                        text = f"{col}{line + 1}"
+                        coordinate[text] = val
+                    i += 1
         return coordinate
     else: return None
 
-def image_cropping(square, img_plus, padding=0):
+def image_cropping(square, img_plus, white_bottom, padding=0):
     """imput are the list of tuples created in the intersection_calculation funtion and the picture taken. Additionaly, the padding can be specified"""
 
     if square is not None:
         corner_sq = []
         crop_imgs = []
+        if white_bottom == True:
+            start = [0,7]
+            stop = [8,-1]
+            step = [1,-1]
+        else:
+            start = [7,0]
+            stop = [-1,8]
+            step = [-1,1]
 
-        for lin in range(8):
-            for col in range(8):
-
+        for col in range(start[0], stop[0], step[0]):
+            for lin in range(start[1], stop[1], step[1]):
                 corner_1 = [int(square[0][col+ 9 * lin]), int(square[1][col+ 9 * lin])]
                 corner_2 = [int(square[0][col + 1+ 9 * lin]), int(square[1][col + 1+ 9 * lin])]
                 corner_3 = [int(square[0][col + 9*(lin+1) + 1]), int(square[1][col + 9*(lin+1) + 1])]
@@ -136,7 +150,7 @@ def image_cropping(square, img_plus, padding=0):
                 crop_imgs.append(crop_img)
 
         return crop_imgs
-    return None
+    else: return None
 
 def save_cropped_img(crop_imgs, save_path, coordinates):
     """input is the list of all the cropped images created in the image_cropping function"""
