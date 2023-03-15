@@ -102,3 +102,4 @@ def displaying_coordinates(img, coordinate):
             font_type = ImageFont.truetype("arial.ttf", 50)
             draw.text(pos,text, font=font_type, fill=255)
         plt.imshow(img_3)
+    return img_3
