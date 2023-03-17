@@ -3,22 +3,25 @@ import cv2 as cv
 from Python_files.utils import edge_detector, hough_lines_detector, filtering_lines, intersection_calculation, coordinate_generator, image_cropping, save_cropped_img
 from Python_files.Display_func import display_hough_lines, display_filtered_lines, display_intersection, displaying_coordinates
 import chess
-from move_predict import evaluate, get_coordinate, get_piece, dict_to_list_of_tuples, minimax, get_best_move
+from Python_files.move_predict import evaluate, get_coordinate, get_piece, dict_to_list_of_tuples, minimax, get_best_move
 import cairosvg
 
 #-------------Board detection--------------------------------
 
 display = 1
-white_bottom = False
+white_bottom = True
 
-img_path = "/home/thierry/code/zuzannaszu/chess_hackers/Raw_Data/Final_boards/Board52.jpg"
+img_path = "/home/thierry/code/zuzannaszu/chess_hackers/Raw_Data/Final_boards/Board56.jpg"
 img = cv.imread(img_path, 1)
 img = cv.resize(img,(1280, 1280), interpolation = cv.INTER_AREA)
 
-if display == 1:
-    plt.imshow(img)
+b,g,r = cv.split(img)
+rgb_img = cv.merge([r,g,b])
 
-edge = edge_detector(img, 80, 300)
+if display == 1:
+    plt.imshow(rgb_img)
+
+edge = edge_detector(rgb_img, 80, 300)
 
 if display == 1:
     plt.imshow(edge)

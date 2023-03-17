@@ -6,6 +6,11 @@ arial.ttf:Zone.Identifier
 .DS_Store
 Mediapipe_model/
 Test_images/
+board.png
+board.svg
+Model/
+Not_to_push/
+=======
 lichess*
 *.pgn
 
