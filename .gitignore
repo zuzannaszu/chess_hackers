@@ -10,6 +10,10 @@ board.png
 board.svg
 Model/
 Not_to_push/
+=======
+lichess*
+*.pgn
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -38,6 +42,8 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+notebooks/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -139,3 +145,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+variables
