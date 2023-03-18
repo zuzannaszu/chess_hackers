@@ -4,6 +4,5 @@ tensorflow
 chess
 opencv-python
 cairosvg
-math
 PIL
 matplotlib
