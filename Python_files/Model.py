@@ -2,8 +2,8 @@ import tensorflow as tf
 import cv2 as cv
 import numpy as np
 
+
 model_path = "/home/thierry/code/zuzannaszu/chess_hackers/Model/chessmodel.h5"
-model = tf.keras.models.load_model(model_path)
 
 classes = {'blackempty': 0,
  'black_ki': 1,
@@ -21,7 +21,7 @@ def select_image(imgs_path):
         cv_imgs.append(rgb_img)
     return cv_imgs
 
-def generate_dict(cv_imgs, imgs_path):
+def generate_dict(model, cv_imgs, imgs_path):
     out_dict = {}
     for idx, img in enumerate(cv_imgs):
         img_array =cv.resize(img, dsize=(160, 120), interpolation=cv.INTER_CUBIC).astype(dtype='float64')
@@ -48,7 +48,7 @@ def prep_imgs(imgs):
     images = np.concatenate(images, axis=0)
     return images
 
-def make_predict(images, imgs_path):
+def make_predict(model, images, imgs_path):
     out_dict = {}
     for i, img in enumerate(images):
         predictions = model.predict(img)
