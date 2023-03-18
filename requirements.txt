@@ -3,8 +3,7 @@ pandas
 tensorflow
 chess
 opencv-python
-glob
 cairosvg
 math
 PIL
-matplotlib.pyplot
+matplotlib
