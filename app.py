@@ -7,13 +7,24 @@ import chess
 from Python_files.move_predict import evaluate, get_coordinate, get_piece, dict_to_list_of_tuples, minimax, get_best_move
 import cairosvg
 import glob
+import tensorflow as tf
+
+@st.cache_resource
+def read_model():
+
+    bucket_name = 'chess_model_032023'
+    model_path = 'chessmodel.h5'
+    url = f'gs://{bucket_name}/{model_path}'
+
+    model = tf.keras.models.load_model(url)
+    return model
 
 st.markdown('''
 Chess board detection and move prediction
 ''')
 st.markdown("""---""")
 
-img_path = "/home/thierry/code/zuzannaszu/chess_hackers/Raw_Data/Final_boards/Board56.jpg"
+img_path = "Raw_Data/Board56.jpg"
 st.text(f"Picture of the board {img_path[-6:-4]}")
 
 img = cv.imread(img_path, -1)
@@ -34,6 +45,7 @@ option = st.selectbox('Which player to play?',('white', 'black'))
 
 run_code = st.button("generate")
 
+model = read_model()
 
 if run_code:
 
@@ -58,7 +70,7 @@ if run_code:
 
     crop_imgs = image_cropping(intersections, img, white_bottom, 40)
 
-    save_path = "/home/thierry/code/zuzannaszu/chess_hackers/Test_save/"
+    save_path = "Crop_images/"
 
     save_cropped_img(crop_imgs, save_path, coordinates)
 
@@ -70,7 +82,7 @@ if run_code:
 
     images = prep_imgs(crop_imgs)
 
-    output_dict = make_predict(images, crop_path)
+    output_dict = make_predict(model, images, crop_path)
 
     #-------------Move predict--------------------------------
 
