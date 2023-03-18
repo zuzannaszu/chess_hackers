@@ -77,7 +77,7 @@ if run_code:
 
     crop_imgs = image_cropping(intersections, img, white_bottom, 40)
 
-    save_path = "streamlit_data/"
+    save_path = "streamlit_data/crop_img/"
 
     save_cropped_img(crop_imgs, save_path, coordinates)
 
