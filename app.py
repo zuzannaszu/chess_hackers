@@ -5,9 +5,9 @@ from Python_files.Display_func import display_hough_lines, display_filtered_line
 from Python_files.Model import select_image, generate_dict, prep_imgs, make_predict
 import chess
 from Python_files.move_predict import evaluate, get_coordinate, get_piece, dict_to_list_of_tuples, minimax, get_best_move
-import cairosvg
 import glob
 import tensorflow as tf
+import base64
 
 @st.cache_resource
 def read_model():
@@ -18,6 +18,13 @@ def read_model():
 
     model = tf.keras.models.load_model(url)
     return model
+
+def render_svg(svg):
+    """Renders the given svg string."""
+    b64 = base64.b64encode(svg.encode('utf-8')).decode("utf-8")
+    html = r'<img src="data:image/svg+xml;base64,%s"/>' % b64
+    st.write(html, unsafe_allow_html=True)
+
 
 st.markdown('''
 Chess board detection and move prediction
@@ -104,10 +111,7 @@ if run_code:
     board.push(get_best_move(board, 1, option))
     board.pop()
 
+
     boardsvg = chess.svg.board(board, lastmove=get_best_move(board, 1, option))
-    outputfile = open('board.svg', "w")
-    outputfile.write(boardsvg)
 
-    img = cairosvg.svg2png(url='board.svg', write_to='board.png', scale=7)
-
-    st.image('board.png')
+    render_svg(boardsvg)
