@@ -84,6 +84,7 @@ if run_code:
     #-------------Model stuffs--------------------------------
 
     crop_path = sorted(glob.glob(save_path + "*.jpg"))
+    print(crop_path)
 
     crop_imgs = select_image(crop_path)
 
