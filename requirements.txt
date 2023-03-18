@@ -1,0 +1,10 @@
+numpy
+pandas
+tensorflow
+chess
+cv2
+glob
+cairosvg
+math
+PIL
+matplotlib.pyplot
