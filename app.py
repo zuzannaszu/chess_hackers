@@ -31,7 +31,7 @@ Chess board detection and move prediction
 ''')
 st.markdown("""---""")
 
-img_path = "Raw_Data/Board56.jpg"
+img_path = "streamlit_data/Board56.jpg"
 st.text(f"Picture of the board {img_path[-6:-4]}")
 
 img = cv.imread(img_path, -1)
@@ -77,7 +77,7 @@ if run_code:
 
     crop_imgs = image_cropping(intersections, img, white_bottom, 40)
 
-    save_path = "Crop_images/"
+    save_path = "streamlit_data/"
 
     save_cropped_img(crop_imgs, save_path, coordinates)
 
