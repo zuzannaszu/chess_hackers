@@ -77,19 +77,21 @@ if run_code:
 
     crop_imgs = image_cropping(intersections, img, white_bottom, 40)
 
-    save_path = "streamlit_data/crop_img/"
+    #save_path = "streamlit_data/crop_img/"
 
-    save_cropped_img(crop_imgs, save_path, coordinates)
+    #save_cropped_img(crop_imgs, save_path, coordinates)
 
     #-------------Model stuffs--------------------------------
 
-    crop_path = sorted(glob.glob(save_path + "*.jpg"))
+    #crop_path = sorted(glob.glob(save_path + "*.jpg"))
 
-    crop_imgs = select_image(crop_path)
+    #crop_imgs = select_image(crop_path)
 
     images = prep_imgs(crop_imgs)
 
-    output_dict = make_predict(model, images, crop_path)
+    output_dict = make_predict(model, images, coordinates)
+    print("-------------------------")
+    print(output_dict)
 
     #-------------Move predict--------------------------------
 

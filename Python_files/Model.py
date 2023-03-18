@@ -39,6 +39,8 @@ def generate_dict(model, cv_imgs, imgs_path):
 def prep_imgs(imgs):
     images = []
     for img in imgs:
+        b,g,r = cv.split(img)
+        img = cv.merge([r,g,b])
         img = tf.image.resize(img, [120,160])
         img = np.copy(tf.keras.preprocessing.image.img_to_array(img))
         img = np.copy(np.expand_dims(img, axis=0))
@@ -48,14 +50,15 @@ def prep_imgs(imgs):
     images = np.concatenate(images, axis=0)
     return images
 
-def make_predict(model, images, imgs_path):
+def make_predict(model, images, coordinate):
     out_dict = {}
     for i, img in enumerate(images):
         predictions = model.predict(img)
         predicted_class_index = np.argmax(predictions)
         class_labels = list(classes.keys())
         predicted_class_label = class_labels[predicted_class_index]
-        coor = imgs_path[i][-6:-4]
+        #coor = imgs_path[i][-6:-4]
+        coor = list(coordinate.keys())[i]
         if predicted_class_label not in ['blackempty','whiteempty']:
             out_dict[coor] = predicted_class_label
     return out_dict
