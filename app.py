@@ -23,12 +23,10 @@ def render_svg(svg):
     """Renders the given svg string."""
     b64 = base64.b64encode(svg.encode('utf-8')).decode("utf-8")
     html = r'<img src="data:image/svg+xml;base64,%s"/>' % b64
-    st.write(html, unsafe_allow_html=True)
+    return html
 
 
-st.markdown('''
-Chess board detection and move prediction
-''')
+st.text('''Chess board detection and move prediction''')
 st.markdown("""---""")
 
 img_path = "streamlit_data/Board56.jpg"
@@ -40,7 +38,7 @@ img = cv.resize(img,(1280, 1280), interpolation = cv.INTER_AREA)
 b,g,r = cv.split(img)
 rgb_img = cv.merge([r,g,b])
 
-st.image(rgb_img)
+st.image(rgb_img, width=500)
 
 st.markdown("""---""")
 white_bottom = False
@@ -65,15 +63,15 @@ if run_code:
     intersections, intersections_df = intersection_calculation(horizontal_lines, vertical_lines)
 
 
-    st.markdown("""---""")
+    #st.markdown("""---""")
 
-    st.text("Coordinate generator")
+    #st.text("Coordinate generator")
 
     coordinates = coordinate_generator(intersections_df, white_bottom)
 
     img_coor = displaying_coordinates(rgb_img, coordinates)
 
-    st.image(img_coor)
+    #st.image(img_coor)
 
     crop_imgs = image_cropping(intersections, img, white_bottom, 40)
 
@@ -90,14 +88,12 @@ if run_code:
     images = prep_imgs(crop_imgs)
 
     output_dict = make_predict(model, images, coordinates)
-    print("-------------------------")
-    print(output_dict)
 
     #-------------Move predict--------------------------------
 
     st.markdown("""---""")
 
-    st.text("reconstructed")
+    #st.text("reconstructed")
 
     board = chess.Board()
 
@@ -113,7 +109,18 @@ if run_code:
     board.push(get_best_move(board, 1, option))
     board.pop()
 
-
     boardsvg = chess.svg.board(board, lastmove=get_best_move(board, 1, option))
 
-    render_svg(boardsvg)
+    board_img = render_svg(boardsvg)
+
+    col1, col2= st.columns(2)
+
+    with col1:
+        st.header("Original board")
+        st.image(rgb_img)
+
+    with col2:
+        st.header("Reconstructed board")
+        st.write(board_img, unsafe_allow_html=True)
+
+    st.text(f"The recommended move is {get_best_move(board, 1, option)}")
